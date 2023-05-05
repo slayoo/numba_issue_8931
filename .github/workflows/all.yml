@@ -2,7 +2,7 @@ name: all
 
 defaults:
   run:
-    shell: bash
+    shell: bash -el {0}
 
 on:
   push:
@@ -12,12 +12,12 @@ jobs:
   main:
     strategy:
       matrix:
-        platform: [ubuntu-latest, macos-latest, windows-latest]
+        platform: [ubuntu, macos, windows]
         pythonpkg: [conda, pip]
         disable-jit: [1, 0]
         python-version: ["3.11"]
       fail-fast: false
-    runs-on: ${{ matrix.platform }}
+    runs-on: ${{ matrix.platform }}-latest
     steps:
       - uses: actions/checkout@v2
       - if: matrix.pythonpkg == 'conda'
