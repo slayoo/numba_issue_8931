@@ -16,6 +16,9 @@ jobs:
         pythonpkg: [conda, pip]
         disable-jit: [1, 0]
         python-version: ["3.10"]
+        exlude:
+          - platform: windows
+            pythonpkg: conda
       fail-fast: false
     runs-on: ${{ matrix.platform }}-latest
     steps:
@@ -39,7 +42,7 @@ jobs:
           NUMBA_DISABLE_JIT: ${{ matrix.disable-jit }} 
         run: |
           python3 --version
-          for run in {1..1000}; do 
+          for run in {1..100}; do 
             echo "RUN: $run"
             python3 numba_scipy_bug.py
           done
