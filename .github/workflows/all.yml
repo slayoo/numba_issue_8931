@@ -14,7 +14,7 @@ jobs:
       matrix:
         platform: [ubuntu-latest, macos-latest, windows-latest]
         pythonpkg: [conda, pip]
-        disable_jit: [1, 0]
+        disable_jit: ["1", "0"]
         python-version: ["3.11"]
       fail-fast: false
     runs-on: ${{ matrix.platform }}
@@ -24,6 +24,8 @@ jobs:
         uses: conda-incubator/setup-miniconda@v2
         with:
           auto-update-conda: true
+          auto-activate-base: true
+          activate-environment: ""
           python-version: ${{ matrix.python-version }}
       - if: matrix.pythonpkg == 'pip'
         uses: actions/setup-python@v1
