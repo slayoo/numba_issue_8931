@@ -23,6 +23,7 @@ jobs:
       - if: matrix.pythonpkg == 'conda'
         uses: conda-incubator/setup-miniconda@v2
         with:
+          auto-update-conda: true
           miniconda-version: "latest"
           activate-environment: test
           python-version: ${{ matrix.python-version }}
@@ -38,5 +39,8 @@ jobs:
           NUMBA_DISABLE_JIT: ${{ matrix.disable-jit }} 
         run: |
           python3 --version
-          for run in {1..1000}; do python3 numba_scipy_bug.py; done
+          for run in {1..1000}; do 
+            echo "RUN: $run"
+            python3 numba_scipy_bug.py
+          done
         
