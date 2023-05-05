@@ -16,7 +16,7 @@ jobs:
         pythonpkg: [conda, pip]
         disable-jit: [1, 0]
         python-version: ["3.10"]
-        exlude:
+        exclude:
           - platform: windows
             pythonpkg: conda
       fail-fast: false
