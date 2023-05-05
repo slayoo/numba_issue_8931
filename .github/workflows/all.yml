@@ -23,9 +23,8 @@ jobs:
       - if: matrix.pythonpkg == 'conda'
         uses: conda-incubator/setup-miniconda@v2
         with:
-          auto-update-conda: true
-          auto-activate-base: true
-          activate-environment: true
+          miniconda-version: "latest"
+          activate-environment: test
           python-version: ${{ matrix.python-version }}
       - if: matrix.pythonpkg == 'pip'
         uses: actions/setup-python@v1
