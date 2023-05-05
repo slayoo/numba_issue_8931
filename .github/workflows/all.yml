@@ -1,0 +1,34 @@
+name: all
+
+defaults:
+  run:
+    shell: bash
+
+on:
+  push:
+    branches: [ main ]
+
+main:
+    strategy:
+      matrix:
+        platform: [ubuntu-latest, macos-latest, windows-latest]
+        pythonpkg: [conda, pip]
+        python-version: ["3.11"]
+    runs-on: ${{ matrix.platform }}
+    steps:
+      - uses: actions/checkout@v2
+      - if: matrix.pythonpkg == 'conda'
+        uses: conda-incubator/setup-miniconda@v2
+        with:
+          auto-update-conda: true
+          python-version: ${{ matrix.python-version }}
+      - if: matrix.pythonpkg == 'pip'
+        uses: actions/setup-python@v1
+        with:
+          python-version: ${{ matrix.python-version }}
+      - if: matrix.pythonpkg == 'conda'
+        run: conda install numba scipy
+      - if: matrix.pythonpkg == 'pip'
+        run: pip install numba scipy
+      - run: for run in {1..100}; do python numba_scipy_err.py; done
+        
